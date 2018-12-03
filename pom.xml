@@ -9,8 +9,8 @@
 	<name>sales-taxes</name>
 
 	<properties>
-		<jre.release>1.8</jre.release>
-		
+		<jre.release>11</jre.release>
+
 		<!-- Plugins -->
 		<compiler.version>3.8.0</compiler.version>
 		
