@@ -10,7 +10,10 @@
 
 	<properties>
 		<jre.release>1.8</jre.release>
-
+		
+		<!-- Plugins -->
+		<compiler.version>3.8.0</compiler.version>
+		
 		<!-- Third party -->
 		<commons.lang.version>3.8.1</commons.lang.version>
 
@@ -22,6 +25,7 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${compiler.version}</version>
 				<configuration>
 					<release>${jre.release}</release>
 				</configuration>
