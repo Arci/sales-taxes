@@ -16,6 +16,7 @@
 
 		<!-- Third party -->
 		<commons.lang.version>3.8.1</commons.lang.version>
+		<lombok.version>1.18.4</lombok.version>
 
 		<!-- Logging -->
 		<logback.version>1.2.3</logback.version>
@@ -57,6 +58,13 @@
 			<version>${commons.lang.version}</version>
 		</dependency>
 
+
+		<!-- Lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
+		</dependency>
 
 		<!-- Logging -->
 		<dependency>
