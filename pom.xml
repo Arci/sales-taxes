@@ -13,9 +13,13 @@
 
 		<!-- Plugins -->
 		<compiler.version>3.8.0</compiler.version>
-		
+
 		<!-- Third party -->
 		<commons.lang.version>3.8.1</commons.lang.version>
+
+		<!-- Logging -->
+		<logback.version>1.2.3</logback.version>
+		<slf4j.version>1.7.25</slf4j.version>
 
 		<!-- Testing -->
 		<junit.version>5.3.2</junit.version>
@@ -51,6 +55,20 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>${commons.lang.version}</version>
+		</dependency>
+
+
+		<!-- Logging -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
 		</dependency>
 
 		<!-- Tests -->
