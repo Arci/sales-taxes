@@ -10,6 +10,9 @@
 
 	<properties>
 		<jre.release>1.8</jre.release>
+
+		<!-- Testing -->
+		<junit.version>5.3.2</junit.version>
 	</properties>
 
 	<build>
@@ -23,8 +26,33 @@
 		</plugins>
 	</build>
 
-	<dependencies>
+	<dependencyManagement>
+		<dependencies>
+			<!-- Junit BOM -->
+			<dependency>
+				<groupId>org.junit</groupId>
+				<artifactId>junit-bom</artifactId>
+				<version>${junit.version}</version>
+				<type>pom</type>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
+	<dependencies>
+		<!-- Tests -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 </project>
