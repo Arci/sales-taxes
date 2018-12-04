@@ -26,3 +26,6 @@ target/
 *.zip
 *.tar.gz
 *.rar
+
+# Test data
+data/result*
