@@ -1,4 +1,4 @@
-package it.arcidiacono.salestaxes.model;
+package it.arcidiacono.salestaxes.model.basket;
 
 import lombok.Data;
 import lombok.NonNull;
