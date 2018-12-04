@@ -1,4 +1,4 @@
-package it.arcidiacono.salestaxes.model.recepit;
+package it.arcidiacono.salestaxes.model.receipt;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
