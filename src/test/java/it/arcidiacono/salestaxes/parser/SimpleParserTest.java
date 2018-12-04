@@ -6,9 +6,8 @@ import static org.hamcrest.Matchers.hasSize;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
-import java.net.URL;
-import java.nio.file.Path;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -35,8 +34,8 @@ public class SimpleParserTest {
 	@Test
 	@DisplayName("Should not break if file is empty")
 	public void testEmptyFile() throws IOException {
-		Path raw = getResource("empty.txt");
-		ShoppingBasket basket = parser.parse(raw);
+		InputStream stream = getResource("empty.txt");
+		ShoppingBasket basket = parser.parse(stream);
 
 		assertThat(basket.getPurchases(), hasSize(0));
 	}
@@ -44,8 +43,8 @@ public class SimpleParserTest {
 	@Test
 	@DisplayName("Should ignre unparsable lines")
 	public void testIgnoreEmptyLinesFile() throws IOException {
-		Path raw = getResource("wrong.txt");
-		ShoppingBasket basket = parser.parse(raw);
+		InputStream stream = getResource("wrong.txt");
+		ShoppingBasket basket = parser.parse(stream);
 
 		assertThat(basket.getPurchases(), hasSize(0));
 	}
@@ -53,8 +52,8 @@ public class SimpleParserTest {
 	@Test
 	@DisplayName("Should skip empty lines")
 	public void testNewLineFile() throws IOException {
-		Path raw = getResource("new_line.txt");
-		ShoppingBasket basket = parser.parse(raw);
+		InputStream stream = getResource("new_line.txt");
+		ShoppingBasket basket = parser.parse(stream);
 
 		assertThat(basket.getPurchases(), hasSize(1));
 		assertThat(basket.getPurchases(), contains(Purchase.of(7, Product.of("bottle of perfume", false), new BigDecimal("18.99"))));
@@ -63,8 +62,8 @@ public class SimpleParserTest {
 	@Test
 	@DisplayName("Should correctly recognize imported products")
 	public void testImportedProductsFile() throws IOException {
-		Path raw = getResource("imported.txt");
-		ShoppingBasket basket = parser.parse(raw);
+		InputStream stream = getResource("imported.txt");
+		ShoppingBasket basket = parser.parse(stream);
 
 		assertThat(basket.getPurchases(), hasSize(5));
 		assertThat(basket.getPurchases(), contains(
@@ -75,13 +74,13 @@ public class SimpleParserTest {
 				Purchase.of(1, Product.of("box of chocolates", true), new BigDecimal("11.25"))));
 	}
 
-	private Path getResource(String name) throws IOException {
+	private InputStream getResource(String name) throws IOException {
 		ClassLoader classLoader = this.getClass().getClassLoader();
-		URL resource = classLoader.getResource(ASSETS_DIRECTORY + File.separator + name);
-		if (resource == null) {
+		InputStream stream = classLoader.getResourceAsStream(ASSETS_DIRECTORY + File.separator + name);
+		if (stream == null) {
 			throw new IOException("resource: " + name + " cannot be found");
 		}
-		return Path.of(resource.getPath());
+		return stream;
 	}
 
 }
