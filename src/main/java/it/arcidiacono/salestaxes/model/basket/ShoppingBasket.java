@@ -9,7 +9,7 @@ public class ShoppingBasket {
 	private List<Purchase> purchasess;
 
 	public ShoppingBasket() {
-		purchasess = new ArrayList<Purchase>();
+		purchasess = new ArrayList<>();
 	}
 
 	public void addPurchase(Purchase purchase) {
@@ -17,7 +17,7 @@ public class ShoppingBasket {
 	}
 
 	public Collection<Purchase> getPurchases() {
-		return new ArrayList<Purchase>(purchasess);
+		return new ArrayList<>(purchasess);
 	}
 
 }

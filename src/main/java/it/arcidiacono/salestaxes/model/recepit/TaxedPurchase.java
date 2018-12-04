@@ -20,6 +20,7 @@ public class TaxedPurchase extends Purchase {
 	public TaxedPurchase() {
 		super();
 		salesTax = BigDecimal.ZERO;
+		taxedPrice = BigDecimal.ZERO;
 	}
 
 }

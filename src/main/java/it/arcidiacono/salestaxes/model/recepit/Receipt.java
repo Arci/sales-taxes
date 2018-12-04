@@ -16,24 +16,24 @@ public class Receipt {
 	private BigDecimal total;
 
 	public Receipt() {
-		purchases = new ArrayList<Purchase>();
+		purchases = new ArrayList<>();
 		salesTaxes = BigDecimal.ZERO;
 		total = BigDecimal.ZERO;
 	}
 
 	public void addPurchase(Purchase purchase) {
 		this.purchases.add(purchase);
-		this.total.add(purchase.getPrice());
+		this.total = this.total.add(purchase.getPrice());
 	}
 
 	public void addPurchase(TaxedPurchase purchase) {
 		this.purchases.add(purchase);
-		this.total.add(purchase.getTaxedPrice());
-		salesTaxes.add(purchase.getSalesTax());
+		this.total = this.total.add(purchase.getTaxedPrice());
+		this.salesTaxes = this.salesTaxes.add(purchase.getSalesTax());
 	}
 
 	public Collection<Purchase> getPurchases() {
-		return new ArrayList<Purchase>(purchases);
+		return new ArrayList<>(purchases);
 	}
 
 }

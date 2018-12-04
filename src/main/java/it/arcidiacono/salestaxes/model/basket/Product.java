@@ -12,6 +12,11 @@ public class Product {
 	@NonNull
 	private String category;
 
-	private boolean imported;
+	@NonNull
+	private Boolean imported;
+
+	public static Product of(String name, String category) {
+		return of(name, category, Boolean.FALSE);
+	}
 
 }
