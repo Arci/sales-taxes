@@ -9,23 +9,17 @@ public interface SalesTax {
 
 	static final BigDecimal ROUNDING = new BigDecimal("0.05");
 
-	BigDecimal applyTax(BigDecimal price);
-
-	default BigDecimal applyTax(BigDecimal price, Integer increment) {
-		BigDecimal tax = getTaxAmount(price, increment);
-		tax = round(tax);
-		return price.add(tax);
-	}
+	BigDecimal getTaxAmount(BigDecimal price);
 
 	default BigDecimal getTaxAmount(BigDecimal price, Integer increment) {
-		return price.multiply(new BigDecimal(increment)).divide(ONE_HUNDRED);
+		return round(price.multiply(new BigDecimal(increment)).divide(ONE_HUNDRED));
 	}
 
 	default BigDecimal round(BigDecimal price) {
 		return round(price, ROUNDING, RoundingMode.UP);
 	}
 
-	 default BigDecimal round(BigDecimal value, BigDecimal increment, RoundingMode roundingMode) {
+	default BigDecimal round(BigDecimal value, BigDecimal increment, RoundingMode roundingMode) {
 		if (increment.signum() == 0) {
 			return value;
 		}

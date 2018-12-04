@@ -7,8 +7,8 @@ public class BasicSalesTax implements SalesTax {
 	static final Integer INCREMENT = 10;
 
 	@Override
-	public BigDecimal applyTax(BigDecimal price) {
-		return applyTax(price, INCREMENT);
+	public BigDecimal getTaxAmount(BigDecimal price) {
+		return getTaxAmount(price, INCREMENT);
 	}
 
 }
