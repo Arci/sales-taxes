@@ -10,9 +10,9 @@ import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
 
-import it.arcidiacono.salestaxes.model.basket.Product;
-import it.arcidiacono.salestaxes.model.basket.Purchase;
-import it.arcidiacono.salestaxes.model.basket.ShoppingBasket;
+import it.arcidiacono.salestaxes.model.Product;
+import it.arcidiacono.salestaxes.model.Purchase;
+import it.arcidiacono.salestaxes.model.ShoppingBasket;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

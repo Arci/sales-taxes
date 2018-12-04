@@ -9,10 +9,9 @@ import java.util.Collection;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import it.arcidiacono.salestaxes.model.basket.Product;
-import it.arcidiacono.salestaxes.model.basket.Purchase;
-import it.arcidiacono.salestaxes.model.basket.ShoppingBasket;
-import it.arcidiacono.salestaxes.model.receipt.TaxedPurchase;
+import it.arcidiacono.salestaxes.model.Product;
+import it.arcidiacono.salestaxes.model.Purchase;
+import it.arcidiacono.salestaxes.model.ShoppingBasket;
 import lombok.NonNull;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;

@@ -16,9 +16,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 
-import it.arcidiacono.salestaxes.model.basket.Product;
-import it.arcidiacono.salestaxes.model.basket.Purchase;
-import it.arcidiacono.salestaxes.model.basket.ShoppingBasket;
+import it.arcidiacono.salestaxes.model.Product;
+import it.arcidiacono.salestaxes.model.Purchase;
+import it.arcidiacono.salestaxes.model.ShoppingBasket;
 
 @TestInstance(Lifecycle.PER_CLASS)
 public class SimpleParserTest {

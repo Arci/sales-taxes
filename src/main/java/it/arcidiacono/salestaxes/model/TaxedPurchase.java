@@ -1,9 +1,7 @@
-package it.arcidiacono.salestaxes.model.receipt;
+package it.arcidiacono.salestaxes.model;
 
 import java.math.BigDecimal;
 
-import it.arcidiacono.salestaxes.model.basket.Product;
-import it.arcidiacono.salestaxes.model.basket.Purchase;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;

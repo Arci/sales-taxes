@@ -3,7 +3,7 @@ package it.arcidiacono.salestaxes.parser;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import it.arcidiacono.salestaxes.model.basket.ShoppingBasket;
+import it.arcidiacono.salestaxes.model.ShoppingBasket;
 
 /**
  *

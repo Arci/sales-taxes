@@ -1,4 +1,4 @@
-package it.arcidiacono.salestaxes.model.basket;
+package it.arcidiacono.salestaxes.model;
 
 import java.math.BigDecimal;
 
