@@ -3,22 +3,20 @@ package it.arcidiacono.salestaxes.model.basket;
 import java.math.BigDecimal;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @RequiredArgsConstructor(staticName = "of")
 public class Purchase {
 
 	@NonNull
-	private Integer quantity;
+	private final Integer quantity;
 
 	@NonNull
-	private Product product;
+	private final Product product;
 
 	@NonNull
-	private BigDecimal price;
+	private final BigDecimal price;
 
 }

@@ -1,22 +1,20 @@
 package it.arcidiacono.salestaxes.model.basket;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 
 @Data(staticConstructor = "of")
+@EqualsAndHashCode(exclude = { "imported" })
 public class Product {
 
 	@NonNull
-	private String name;
+	private final String name;
+
+	// @NonNull
+	// private String category;
 
 	@NonNull
-	private String category;
-
-	@NonNull
-	private Boolean imported;
-
-	public static Product of(String name, String category) {
-		return of(name, category, Boolean.FALSE);
-	}
+	private final Boolean imported;
 
 }
