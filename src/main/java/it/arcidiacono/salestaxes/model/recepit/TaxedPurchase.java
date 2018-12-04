@@ -13,7 +13,7 @@ public class TaxedPurchase extends Purchase {
 
 	@NonNull
 	private BigDecimal salesTax;
-	
+
 	@NonNull
 	private BigDecimal taxedPrice;
 

@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.List;
 
 import it.arcidiacono.salestaxes.model.basket.Purchase;
-import lombok.Data;
 
 public class Receipt {
 
@@ -26,7 +25,7 @@ public class Receipt {
 		this.purchases.add(purchase);
 		this.total.add(purchase.getPrice());
 	}
-	
+
 	public void addPurchase(TaxedPurchase purchase) {
 		this.purchases.add(purchase);
 		this.total.add(purchase.getTaxedPrice());

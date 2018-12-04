@@ -11,13 +11,13 @@ public class ShoppingBasket {
 	public ShoppingBasket() {
 		purchasess = new ArrayList<Purchase>();
 	}
-	
+
 	public void addPurchase(Purchase purchase) {
 		this.purchasess.add(purchase);
 	}
-	
-	public Collection<Purchase> getPurchases(){
+
+	public Collection<Purchase> getPurchases() {
 		return new ArrayList<Purchase>(purchasess);
 	}
-	
+
 }
