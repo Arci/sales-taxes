@@ -7,6 +7,11 @@ When I purchase items I receive a receipt which lists the name of all the items 
 
 # Assumptions
 
+## Input format
+The input format is the one outlined in the examples so I suppose a file in that format should be given to the program for parsing before any processing.
+
+The implemented `SimpleParser` implements the interface `BasketParser` that accept an `InputStream` and returns the parsed basket as a POJO so that more parsers can be added in needed.
+
 ## Products categories
 A file containing the categories of the various products is supplied at startup, the file is such that:
 - is a CSV with two columns: 
