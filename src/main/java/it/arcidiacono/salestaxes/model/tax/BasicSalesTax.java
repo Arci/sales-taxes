@@ -2,7 +2,10 @@ package it.arcidiacono.salestaxes.model.tax;
 
 import java.math.BigDecimal;
 
-public class BasicSalesTax implements SalesTax {
+/**
+ * Represent a {@linkplain SalesTax} for the 10% on all applicable goods.
+ */
+public class BasicSalesTax extends RoundedSalesTax {
 
 	static final Integer INCREMENT = 10;
 

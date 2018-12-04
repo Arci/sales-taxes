@@ -2,7 +2,10 @@ package it.arcidiacono.salestaxes.model.tax;
 
 import java.math.BigDecimal;
 
-public class ImportTax implements SalesTax {
+/**
+ * Represent a {@linkplain SalesTax} of the 5% for all imported goods.
+ */
+public class ImportTax extends RoundedSalesTax {
 
 	static final Integer INCREMENT = 5;
 
