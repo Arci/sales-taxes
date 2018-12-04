@@ -4,19 +4,25 @@ import java.math.BigDecimal;
 
 import lombok.Data;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 @Data
-@RequiredArgsConstructor(staticName = "of")
 public class Purchase {
 
-	@NonNull
 	private final Integer quantity;
 
-	@NonNull
 	private final Product product;
 
-	@NonNull
 	private final BigDecimal price;
+
+	protected Purchase(@NonNull Integer quantity, @NonNull Product product, @NonNull BigDecimal price) {
+		super();
+		this.quantity = quantity;
+		this.product = product;
+		this.price = price;
+	}
+
+	public static Purchase of(@NonNull Integer quantity, @NonNull Product product, @NonNull BigDecimal price) {
+		return new Purchase(quantity, product, price);
+	}
 
 }

@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import it.arcidiacono.salestaxes.model.basket.Product;
 import it.arcidiacono.salestaxes.model.basket.Purchase;
 import it.arcidiacono.salestaxes.model.basket.ShoppingBasket;
+import it.arcidiacono.salestaxes.model.receipt.TaxedPurchase;
 import lombok.NonNull;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
@@ -32,6 +33,16 @@ public class ModelTest {
 	@DisplayName("Equals of Purchase should behave correctly")
 	public void testPurchaseEquals() {
 		EqualsVerifier.forClass(Purchase.class)
+				.withIgnoredAnnotations(NonNull.class)
+				.suppress(Warning.STRICT_INHERITANCE)
+				.verify();
+	}
+
+	@Test
+	@DisplayName("Equals of TaxedPurchase should behave correctly")
+	public void testTaxedPurchaseEquals() {
+		EqualsVerifier.forClass(TaxedPurchase.class)
+				.withRedefinedSuperclass()
 				.withIgnoredAnnotations(NonNull.class)
 				.suppress(Warning.STRICT_INHERITANCE)
 				.verify();
