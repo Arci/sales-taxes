@@ -21,7 +21,7 @@ public abstract class RoundedSalesTax implements SalesTax {
 	}
 
 	private BigDecimal round(BigDecimal value, BigDecimal increment, RoundingMode roundingMode) {
-		if (increment.signum() == 0) {
+		if (increment.signum() == 0) { // avoid divide by zero
 			return value;
 		}
 		return value.divide(increment, 0, roundingMode).multiply(increment);
