@@ -24,6 +24,8 @@ I suppose that a file containing the categories of the various products is suppl
 - is a CSV with two columns: 
     - *product*, that is the product name (possibly without the _imported_ verb)
     - *category*, that is the category to which it belongs
+
+Moreover I assumed the following:
 - each product has one and only one category
 - if a product cannot be found within categories it's supposed to be eligible for the basic sales tax
 - categories can be held in memory. A `HashMap` has been used to store them, otherwise they should be saved persistently on a DB or the file read by chunk
