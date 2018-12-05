@@ -8,23 +8,23 @@ When I purchase items I receive a receipt which lists the name of all the items 
 # Assumptions
 
 ## Input format
-The input format is the one outlined in the examples so I suppose a file in that format should be given to the program for parsing before any processing.
+The input format is intended as the one outlined in the examples so I suppose a file in that format should be given to the program for parsing before any processing.
 
-The implemented `TextualBasketParser` implements the interface `BasketParser` that accept an `InputStream` and returns the parsed basket as a POJO so that more parsers can be added in needed.
-
-## Products categories
-A file containing the categories of the various products is supplied at startup, the file is such that:
-- is a CSV with two columns: 
-    - *product* that is the product name
-    - *category* that is its the category to which it belongs
-- each product has one and only one category
-- If a product cannot be found within categories it's supposed to be eligible for the basic sales tax
-- categories can be held in memory, an `HashMap` has been used to store them, otherwise they should be saved persistently on a DB or the file read by chunk
+The implemented parser (`TextualBasketParser`) implements the interface `BasketParser` that accept an `InputStream` and returns the parsed basket as a POJO so that more parsers can be added if needed.
 
 ## Output format
 The output format is intended as the one in the examples so I suppose the user wants the ability to output it to a file.
 
-The implemented writer: `TextualReceiptWriter` implements the interface `ReceiptWriter` that accept a `Receipt` and returns a string representation of it.
+The implemented writer (`TextualReceiptWriter`) implements the interface `ReceiptWriter` that accept a `Receipt` and returns a string representation of it so that more parsers can be added if needed.
+
+## Products categories
+I suppose that a file containing the categories of the various products is supplied at startup, the file is such that:
+- is a CSV with two columns: 
+    - *product*, that is the product name (possibly without the _imported_ verb)
+    - *category*, that is the category to which it belongs
+- each product has one and only one category
+- if a product cannot be found within categories it's supposed to be eligible for the basic sales tax
+- categories can be held in memory. A `HashMap` has been used to store them, otherwise they should be saved persistently on a DB or the file read by chunk
 
 # Build the application
 The application can be build with Maven:
@@ -37,7 +37,11 @@ mvn clean instal
 The application is written in Java using Oracle's JDK11:
 
 ```
-java -jar  SalesTaxes -c "/path/to/categories.csv" -b "/path/to/basket.txt" -e "food","books","medical" -o "/path/to/result.txt"
+java -jar SalesTaxes 
+    -c "/path/to/categories.csv" 
+    -b "/path/to/basket.txt" 
+    -e "food","books","medical" 
+    -o "/path/to/result.txt"
 ```
 
 Givin no arguments the help is printed:
