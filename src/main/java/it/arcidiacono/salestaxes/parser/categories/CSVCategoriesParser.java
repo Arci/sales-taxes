@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
@@ -31,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CSVCategoriesParser implements CategoriesParser {
 
-	private static final String HEADER = "product,category";
+	private static final Pattern HEADER = Pattern.compile("\\s*product\\s*,\\s*category\\s*");
 
 	@Override
 	public Map<String, String> parse(InputStream stream) throws IOException {
@@ -39,18 +40,18 @@ public class CSVCategoriesParser implements CategoriesParser {
 
 		List<String> lines = readLines(stream);
 		lines.forEach(line -> {
-			if (StringUtils.isBlank(line) || StringUtils.equalsIgnoreCase(line, HEADER)) {
+			if (StringUtils.isBlank(line) || HEADER.matcher(line).find()) {
 				return;
 			}
 
 			String[] parts = line.split("\\s*,\\s*");
 			if (parts.length == 2) {
-				String product = StringUtils.trimToEmpty(parts[0]);
-				String category = StringUtils.trimToEmpty(parts[1]);
-				if (product != null && category != null) {
+				String product = StringUtils.trimToNull(parts[0]);
+				String category = StringUtils.trimToNull(parts[1]);
+				if (product != null) {
 					categories.put(product, category);
 				} else {
-					log.warn("product or category are empty: '{}'", line);
+					log.warn("product is empty: '{}'", line);
 				}
 			} else {
 				log.warn("line has more or less than 2 columns: '{}'", line);
