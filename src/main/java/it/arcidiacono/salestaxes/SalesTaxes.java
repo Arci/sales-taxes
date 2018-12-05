@@ -98,7 +98,7 @@ public class SalesTaxes {
 				log.info("product: '{}' has applicable base tax, added import tax of: {}", product, taxAmount);
 			}
 
-			if (tax.compareTo(BigDecimal.ZERO) < 0) {
+			if (tax.compareTo(BigDecimal.ZERO) == 0) {
 				receipt.addPurchase(purchase);
 				log.debug("added untaxed purchase: {}", purchase);
 			} else {
