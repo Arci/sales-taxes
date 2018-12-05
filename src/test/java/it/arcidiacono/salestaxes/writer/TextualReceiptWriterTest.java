@@ -4,13 +4,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.isEmptyOrNullString;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigDecimal;
-import java.nio.charset.StandardCharsets;
 
-import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,9 +17,10 @@ import it.arcidiacono.salestaxes.model.Product;
 import it.arcidiacono.salestaxes.model.Purchase;
 import it.arcidiacono.salestaxes.model.Receipt;
 import it.arcidiacono.salestaxes.model.TaxedPurchase;
+import it.arcidiacono.salestaxes.util.ResourceBasedTest;
 
 @TestInstance(Lifecycle.PER_CLASS)
-public class TextualReceiptWriterTest {
+public class TextualReceiptWriterTest extends ResourceBasedTest {
 
 	private static final String ASSETS_DIRECTORY = "receipts";
 
@@ -46,7 +43,7 @@ public class TextualReceiptWriterTest {
 		Receipt receipt = new Receipt();
 
 		String output = writer.write(receipt);
-		assertThat(output, equalTo(getResource("no_purchase.txt")));
+		assertThat(output, equalTo(getResource(ASSETS_DIRECTORY, "no_purchase.txt")));
 	}
 
 	@Test
@@ -57,7 +54,7 @@ public class TextualReceiptWriterTest {
 		receipt.addPurchase(Purchase.of(1, Product.of("chocolate bar", false), new BigDecimal("0.85")));
 
 		String output = writer.write(receipt);
-		assertThat(output, equalTo(getResource("no_tax.txt")));
+		assertThat(output, equalTo(getResource(ASSETS_DIRECTORY, "no_tax.txt")));
 	}
 
 	@Test
@@ -69,15 +66,7 @@ public class TextualReceiptWriterTest {
 		receipt.addPurchase(TaxedPurchase.of(Purchase.of(1, Product.of("bottle of perfume", true), new BigDecimal("47.50")), new BigDecimal("7.15")));
 
 		String output = writer.write(receipt);
-		assertThat(output, equalTo(getResource("taxed.txt")));
+		assertThat(output, equalTo(getResource(ASSETS_DIRECTORY, "taxed.txt")));
 	}
 
-	private String getResource(String name) throws IOException {
-		ClassLoader classLoader = this.getClass().getClassLoader();
-		InputStream stream = classLoader.getResourceAsStream(ASSETS_DIRECTORY + File.separator + name);
-		if (stream == null) {
-			throw new IOException("resource: " + name + " cannot be found");
-		}
-		return IOUtils.toString(stream, StandardCharsets.UTF_8);
-	}
 }
