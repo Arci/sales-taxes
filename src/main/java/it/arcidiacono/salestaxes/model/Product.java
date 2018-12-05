@@ -11,7 +11,6 @@ public class Product {
 	@NonNull
 	private final String name;
 
-	@NonNull
-	private final Boolean imported;
+	private final boolean imported;
 
 }

@@ -2,12 +2,18 @@ package it.arcidiacono.salestaxes;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashSet;
-import java.util.Set;
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
-import it.arcidiacono.salestaxes.model.Category;
+import it.arcidiacono.salestaxes.model.Product;
+import it.arcidiacono.salestaxes.model.Purchase;
 import it.arcidiacono.salestaxes.model.Receipt;
 import it.arcidiacono.salestaxes.model.ShoppingBasket;
+import it.arcidiacono.salestaxes.model.TaxedPurchase;
+import it.arcidiacono.salestaxes.model.tax.BasicSalesTax;
+import it.arcidiacono.salestaxes.model.tax.ImportTax;
+import it.arcidiacono.salestaxes.model.tax.SalesTax;
 import it.arcidiacono.salestaxes.parser.BasketParser;
 import it.arcidiacono.salestaxes.parser.SimpleParser;
 import lombok.NoArgsConstructor;
@@ -18,7 +24,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SalesTaxes {
 
-	Set<Category> categories = new HashSet<>();
+	Map<String, String> categories = new HashMap<>();
 
 	public void read(InputStream categories) throws IOException {
 		// TODO read categories to the hash set
@@ -48,8 +54,39 @@ public class SalesTaxes {
 	 * 						the resulting {@linkplain Receipt}
 	 */
 	public Receipt buildReceipt(ShoppingBasket shoppingBasket) {
-		// TODO the actual logic to implement the problem
-		return null;
+		Receipt receipt = new Receipt();
+		for (Purchase purchase : shoppingBasket.getPurchases()) {
+			Product product = purchase.getProduct();
+			BigDecimal tax = BigDecimal.ZERO;
+
+			if (product.isImported()) {
+				SalesTax importTax = new ImportTax();
+				BigDecimal taxAmount = importTax.getTaxAmount(purchase.getPrice());
+				tax = tax.add(taxAmount);
+			}
+
+			if (isBasicTaxApplicable(product)) {
+				SalesTax basicTax = new BasicSalesTax();
+				BigDecimal taxAmount = basicTax.getTaxAmount(purchase.getPrice());
+				tax = tax.add(taxAmount);
+			}
+
+			if (tax.compareTo(BigDecimal.ZERO) < 0) {
+				receipt.addPurchase(purchase);
+			} else {
+				receipt.addPurchase(TaxedPurchase.of(purchase, tax));
+			}
+
+		}
+		return receipt;
+	}
+
+	private boolean isBasicTaxApplicable(Product product) {
+		if (!categories.containsKey(product.getName())) {
+			return false;
+		}
+		String category = categories.get(product.getName());
+		return category.equalsIgnoreCase("books") || category.equalsIgnoreCase("food") || category.equalsIgnoreCase("medical products");
 	}
 
 	/**
@@ -62,7 +99,7 @@ public class SalesTaxes {
 	 */
 	public String format(Receipt receipt) {
 		// TODO as for the parser, a format interface and a simple formatter
-		return "test";
+		return receipt.toString();
 	}
 
 }
