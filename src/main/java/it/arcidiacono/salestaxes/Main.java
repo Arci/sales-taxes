@@ -83,18 +83,18 @@ public class Main {
 	}
 
 	private static Options defineOptions() {
-		Option basket = Option.builder(BASKET_OPTION)
-				.required()
-				.hasArg()
-				.longOpt("basket")
-				.desc("the shopping basket file path")
-				.build();
-
 		Option categories = Option.builder(CATEGORIES_OPTION)
 				.required()
 				.hasArg()
 				.longOpt("categories")
 				.desc("the categories file path")
+				.build();
+
+		Option basket = Option.builder(BASKET_OPTION)
+				.required()
+				.hasArg()
+				.longOpt("basket")
+				.desc("the shopping basket file path")
 				.build();
 
 		Option excluded = Option.builder(EXCLUDE_OPTION)
@@ -111,8 +111,8 @@ public class Main {
 				.build();
 
 		final Options options = new Options();
-		options.addOption(basket);
 		options.addOption(categories);
+		options.addOption(basket);
 		options.addOption(excluded);
 		options.addOption(output);
 		return options;

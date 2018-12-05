@@ -44,12 +44,12 @@ java -jar SalesTaxes
     -o "/path/to/result.txt"
 ```
 
-Givin no arguments the help is printed:
+Giving no arguments the help is printed:
 
 ```
 usage: SalesTaxes
- -b,--basket <arg>       the shopping basket file path
  -c,--categories <arg>   the categories file path
+ -b,--basket <arg>       the shopping basket file path
  -e,--exclude <arg>      categories excluded from base tax
  -o,--output <arg>       the file to which output the receipt
 ```
