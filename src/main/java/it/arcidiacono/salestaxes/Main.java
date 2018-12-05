@@ -8,6 +8,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -16,6 +19,7 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.apache.commons.lang3.StringUtils;
 
 import it.arcidiacono.salestaxes.model.Receipt;
 import it.arcidiacono.salestaxes.model.ShoppingBasket;
@@ -27,6 +31,8 @@ public class Main {
 	private static final String BASKET_OPTION = "b";
 
 	private static final String CATEGORIES_OPTION = "c";
+
+	private static final String EXCLUDE_OPTION = "e";
 
 	private static final String OUTPUT_OPTION = "o";
 
@@ -52,6 +58,8 @@ public class Main {
 			log.error("cannot read input files", e);
 			System.exit(0);
 		}
+		List<String> excludedCategories = getOptionsList(commandLine, EXCLUDE_OPTION);
+		log.debug("excluded categories: {}", StringUtils.join(excludedCategories, ","));
 
 		Path outputLocation = getOptionPath(commandLine, OUTPUT_OPTION);
 		log.debug("output arg: {}", outputLocation);
@@ -66,7 +74,7 @@ public class Main {
 		}
 
 		try {
-			String receipt = buildReceipt(basket, categories);
+			String receipt = buildReceipt(basket, categories, excludedCategories);
 			writeRecipt(outputLocation, receipt);
 		} catch (IOException e) {
 			log.error("an error occurred calculating the receipt: {}", e.getMessage(), e);
@@ -89,6 +97,12 @@ public class Main {
 				.desc("the categories file path")
 				.build();
 
+		Option excluded = Option.builder(EXCLUDE_OPTION)
+				.hasArgs()
+				.longOpt("exclude")
+				.desc("categories excluded from base tax")
+				.build();
+
 		Option output = Option.builder(OUTPUT_OPTION)
 				.required()
 				.hasArg()
@@ -99,6 +113,7 @@ public class Main {
 		final Options options = new Options();
 		options.addOption(basket);
 		options.addOption(categories);
+		options.addOption(excluded);
 		options.addOption(output);
 		return options;
 	}
@@ -112,13 +127,21 @@ public class Main {
 		return Paths.get(commandLine.getOptionValue(option));
 	}
 
+	private static List<String> getOptionsList(CommandLine commandLine, String option) {
+		String[] optionValues = commandLine.getOptionValues(option);
+		if (optionValues != null) {
+			return Arrays.asList(optionValues);
+		}
+		return Collections.emptyList();
+	}
+
 	private static InputStream getOptionStream(CommandLine commandLine, String option) throws FileNotFoundException {
 		Path path = getOptionPath(commandLine, option);
 		return new FileInputStream(path.toFile());
 	}
 
-	private static String buildReceipt(InputStream basket, InputStream categories) throws IOException {
-		SalesTaxes salesTaxes = new SalesTaxes();
+	private static String buildReceipt(InputStream basket, InputStream categories, List<String> excludedCategories) throws IOException {
+		SalesTaxes salesTaxes = new SalesTaxes(excludedCategories);
 		salesTaxes.read(categories);
 		ShoppingBasket shoppingBasket = salesTaxes.parse(basket);
 		Receipt receipt = salesTaxes.buildReceipt(shoppingBasket);
