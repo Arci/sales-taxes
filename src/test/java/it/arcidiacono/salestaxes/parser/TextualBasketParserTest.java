@@ -18,18 +18,19 @@ import org.junit.jupiter.api.TestInstance.Lifecycle;
 import it.arcidiacono.salestaxes.model.Product;
 import it.arcidiacono.salestaxes.model.Purchase;
 import it.arcidiacono.salestaxes.model.ShoppingBasket;
-import it.arcidiacono.salestaxes.parser.basket.SimpleParser;
+import it.arcidiacono.salestaxes.parser.basket.BasketParser;
+import it.arcidiacono.salestaxes.parser.basket.TextualBasketParser;
 
 @TestInstance(Lifecycle.PER_CLASS)
-public class SimpleParserTest {
+public class TextualBasketParserTest {
 
 	private static final String ASSETS_DIRECTORY = "baskets";
 
-	private SimpleParser parser;
+	private BasketParser parser;
 
 	@BeforeAll
 	public void setup() {
-		parser = new SimpleParser();
+		parser = new TextualBasketParser();
 	}
 
 	@Test
@@ -42,7 +43,7 @@ public class SimpleParserTest {
 	}
 
 	@Test
-	@DisplayName("Should ignre unparsable lines")
+	@DisplayName("Should ignore unparsable lines")
 	public void testIgnoreEmptyLinesFile() throws IOException {
 		InputStream stream = getResource("wrong.txt");
 		ShoppingBasket basket = parser.parse(stream);
