@@ -59,3 +59,12 @@ usage: SalesTaxes
  -e,--exclude <arg>      categories excluded from base tax
  -o,--output <arg>       the file to which output the receipt
 ```
+
+# Solutions
+
+The test `SalesTaxesProblemsTest` contains three test cases for the three problem stated in the problem description.
+
+## Assumption 
+- in problem #1 output a wrongly placed space character has been removed between "book" and ":"
+- problem #3 the last product differ from input to output, "box of *imported* chocolates" and "*imported* box of chocolates" respectively, the former has been chosen
+
