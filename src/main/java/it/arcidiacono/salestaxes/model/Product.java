@@ -11,9 +11,6 @@ public class Product {
 	@NonNull
 	private final String name;
 
-	// @NonNull
-	// private String category;
-
 	@NonNull
 	private final Boolean imported;
 
