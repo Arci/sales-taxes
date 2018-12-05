@@ -12,6 +12,8 @@ The input format is intended as the one outlined in the examples so I suppose a 
 
 The implemented parser (`TextualBasketParser`) implements the interface `BasketParser` that accept an `InputStream` and returns the parsed basket as a POJO so that more parsers can be added if needed.
 
+Within the `data/` directory are provided the three baskets stated in the problem description.
+
 ## Output format
 The output format is intended as the one in the examples so I suppose the user wants the ability to output it to a file.
 
@@ -25,6 +27,8 @@ I suppose that a file containing the categories of the various products is suppl
 - each product has one and only one category
 - if a product cannot be found within categories it's supposed to be eligible for the basic sales tax
 - categories can be held in memory. A `HashMap` has been used to store them, otherwise they should be saved persistently on a DB or the file read by chunk
+
+Within the `data/` directory is provided an example of the categories CSV file.
 
 # Build the application
 The application can be build with Maven:
