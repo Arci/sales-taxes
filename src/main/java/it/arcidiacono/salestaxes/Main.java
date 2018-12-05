@@ -145,7 +145,7 @@ public class Main {
 		salesTaxes.read(categories);
 		ShoppingBasket shoppingBasket = salesTaxes.parse(basket);
 		Receipt receipt = salesTaxes.buildReceipt(shoppingBasket);
-		return salesTaxes.format(receipt);
+		return salesTaxes.write(receipt);
 	}
 
 	private static void writeRecipt(Path outputLocation, String receipt) throws IOException {

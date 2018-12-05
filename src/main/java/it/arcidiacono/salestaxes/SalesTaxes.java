@@ -27,6 +27,7 @@ import it.arcidiacono.salestaxes.parser.categories.CategoriesParser;
 import it.arcidiacono.salestaxes.writer.ReceiptWriter;
 import it.arcidiacono.salestaxes.writer.TexualReceiptWriter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -38,8 +39,10 @@ public class SalesTaxes {
 
 	private static final String IMPORTED = "imported ";
 
+	@Setter
 	private List<String> excludedCategories = new ArrayList<>();
 
+	@Setter
 	private Map<String, String> categories = new HashMap<>();
 
 	public SalesTaxes(List<String> excludedCategories) {
@@ -131,7 +134,7 @@ public class SalesTaxes {
 	 * @return
 	 * 				the string representation of the receipt
 	 */
-	public String format(Receipt receipt) {
+	public String write(Receipt receipt) {
 		ReceiptWriter writer = new TexualReceiptWriter();
 		return writer.write(receipt);
 	}
