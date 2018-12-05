@@ -3,7 +3,6 @@ package it.arcidiacono.salestaxes.parser;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.isEmptyOrNullString;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
@@ -57,9 +56,7 @@ public class CSVCategoriesParserTest {
 		InputStream stream = getResource("missing_columns.csv");
 		Map<String, String> categories = parser.parse(stream);
 
-		assertThat(categories.keySet(), hasSize(1));
-		assertThat(categories.get("bottle of perfume"), isEmptyOrNullString());
-
+		assertThat(categories.keySet(), hasSize(0));
 	}
 
 	@Test

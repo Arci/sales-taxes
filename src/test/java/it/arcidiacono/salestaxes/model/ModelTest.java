@@ -9,9 +9,6 @@ import java.util.Collection;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import it.arcidiacono.salestaxes.model.Product;
-import it.arcidiacono.salestaxes.model.Purchase;
-import it.arcidiacono.salestaxes.model.ShoppingBasket;
 import lombok.NonNull;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
@@ -42,6 +39,7 @@ public class ModelTest {
 	public void testTaxedPurchaseEquals() {
 		EqualsVerifier.forClass(TaxedPurchase.class)
 				.withRedefinedSuperclass()
+				.withIgnoredFields("price")
 				.withIgnoredAnnotations(NonNull.class)
 				.suppress(Warning.STRICT_INHERITANCE)
 				.verify();
