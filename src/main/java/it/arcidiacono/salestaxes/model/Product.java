@@ -13,4 +13,9 @@ public class Product {
 
 	private final boolean imported;
 
+	@Override
+	public String toString() {
+		return name;
+	}
+
 }

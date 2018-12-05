@@ -17,6 +17,7 @@ A file containing the categories of the various products is supplied at startup,
 - is a CSV with two columns: 
     - *product* that is the product name
     - *category* that is its the category to which it belongs
+- each product has one and only one category
 - If a product cannot be found within categories it's supposed to be eligible for the basic sales tax
 - categories can be saved in memory, an `HashMap` has been used to store them, otherwise they should be saved persistently on a DB or the file read by chunk
 

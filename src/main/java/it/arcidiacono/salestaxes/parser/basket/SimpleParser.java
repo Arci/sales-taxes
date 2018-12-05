@@ -1,4 +1,4 @@
-package it.arcidiacono.salestaxes.parser;
+package it.arcidiacono.salestaxes.parser.basket;
 
 import java.io.BufferedReader;
 import java.io.IOException;
