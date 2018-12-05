@@ -18,6 +18,17 @@ import it.arcidiacono.salestaxes.model.Purchase;
 import it.arcidiacono.salestaxes.model.ShoppingBasket;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Parses a basket in the format of the problem statement, as follows:
+ *
+ * <pre>
+ * 1 imported bottle of perfume: 32.19
+ * 1 bottle of perfume: 20.89
+ * 1 packet of headache pills: 9.75
+ * 1 imported box of chocolates: 11.85
+ * 
+ * <pre/>
+ */
 @Slf4j
 public class SimpleParser implements BasketParser {
 
