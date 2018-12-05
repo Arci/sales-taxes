@@ -50,9 +50,6 @@ public class TextualBasketParser implements BasketParser {
 			if (matcher.find()) {
 				String name = matcher.group("product");
 				boolean imported = isImported(name);
-				if (imported) {
-					name = fixProductName(name);
-				}
 				Product product = Product.of(name, imported);
 
 				Integer quantity = Integer.valueOf(matcher.group("quantity"));
@@ -74,11 +71,6 @@ public class TextualBasketParser implements BasketParser {
 			list = br.lines().collect(Collectors.toList());
 		}
 		return list;
-	}
-
-	private String fixProductName(String name) {
-		return name.replace(IMPORTED, "");
-
 	}
 
 	private boolean isImported(String product) {

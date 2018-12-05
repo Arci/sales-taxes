@@ -69,11 +69,11 @@ public class TextualBasketParserTest {
 
 		assertThat(basket.getPurchases(), hasSize(5));
 		assertThat(basket.getPurchases(), contains(
-				Purchase.of(1, Product.of("box of chocolates", true), new BigDecimal("10.00")),
-				Purchase.of(4, Product.of("bottle of perfume", true), new BigDecimal("47.50")),
-				Purchase.of(1, Product.of("bottle of perfume", true), new BigDecimal("27.99")),
+				Purchase.of(1, Product.of("imported box of chocolates", true), new BigDecimal("10.00")),
+				Purchase.of(4, Product.of("imported bottle of perfume", true), new BigDecimal("47.50")),
+				Purchase.of(1, Product.of("bottle of imported perfume", true), new BigDecimal("27.99")),
 				Purchase.of(7, Product.of("bottle of perfume", false), new BigDecimal("18.99")),
-				Purchase.of(1, Product.of("box of chocolates", true), new BigDecimal("11.25"))));
+				Purchase.of(1, Product.of("box of imported chocolates", true), new BigDecimal("11.25"))));
 	}
 
 	private InputStream getResource(String name) throws IOException {

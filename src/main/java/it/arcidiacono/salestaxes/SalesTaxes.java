@@ -3,10 +3,12 @@ package it.arcidiacono.salestaxes;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -19,9 +21,11 @@ import it.arcidiacono.salestaxes.model.tax.BasicSalesTax;
 import it.arcidiacono.salestaxes.model.tax.ImportTax;
 import it.arcidiacono.salestaxes.model.tax.SalesTax;
 import it.arcidiacono.salestaxes.parser.basket.BasketParser;
-import it.arcidiacono.salestaxes.parser.basket.SimpleParser;
+import it.arcidiacono.salestaxes.parser.basket.TextualBasketParser;
 import it.arcidiacono.salestaxes.parser.categories.CSVCategoriesParser;
 import it.arcidiacono.salestaxes.parser.categories.CategoriesParser;
+import it.arcidiacono.salestaxes.writer.ReceiptWriter;
+import it.arcidiacono.salestaxes.writer.TexualReceiptWriter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,10 +36,15 @@ import lombok.extern.slf4j.Slf4j;
 @NoArgsConstructor
 public class SalesTaxes {
 
-	// TODO move to cli param
-	private static final List<String> EXCLUDED = Arrays.asList("books", "food", "medical");
+	private static final String IMPORTED = "imported ";
+
+	private List<String> excludedCategories = new ArrayList<>();
 
 	private Map<String, String> categories = new HashMap<>();
+
+	public SalesTaxes(List<String> excludedCategories) {
+		this.excludedCategories = excludedCategories;
+	}
 
 	public void read(InputStream categories) throws IOException {
 		CategoriesParser parser = new CSVCategoriesParser();
@@ -43,7 +52,7 @@ public class SalesTaxes {
 	}
 
 	/**
-	 * Parses the given input stream using the {@linkplain SimpleParser}.
+	 * Parses the given input stream using the {@linkplain TextualBasketParser}.
 	 *
 	 * @param  basket
 	 *                     the basket stream to parse
@@ -53,7 +62,7 @@ public class SalesTaxes {
 	 *                     if any error occur handling the stream
 	 */
 	public ShoppingBasket parse(InputStream basket) throws IOException {
-		BasketParser parser = new SimpleParser();
+		BasketParser parser = new TextualBasketParser();
 		return parser.parse(basket);
 	}
 
@@ -100,13 +109,18 @@ public class SalesTaxes {
 	}
 
 	private boolean isBasicTaxApplicable(Product product) {
-		if (!categories.containsKey(product.getName())) {
-			log.warn("product: '{}' has no declared category", product);
-			return false;
+		if (excludedCategories.isEmpty()) {
+			log.info("no categories are excluded from basic tax");
+			return true;
 		}
-		String category = categories.get(product.getName());
-		log.debug("product: '{}' category is: '{}'", product, category);
-		return EXCLUDED.stream().noneMatch(excluded -> StringUtils.containsIgnoreCase(category, excluded));
+		String productName = fixProductName(product.getName());
+		Optional<String> category = seekProductCategory(productName);
+		if (!category.isPresent()) {
+			log.warn("product: '{}' has no declared category", product);
+			return true;
+		}
+		log.debug("product: '{}' category is: '{}'", product, category.get());
+		return excludedCategories.stream().noneMatch(excluded -> StringUtils.containsIgnoreCase(category.get(), excluded));
 	}
 
 	/**
@@ -118,8 +132,22 @@ public class SalesTaxes {
 	 * 				the string representation of the receipt
 	 */
 	public String format(Receipt receipt) {
-		// TODO as for the parser, a format interface and a simple formatter
-		return receipt.toString();
+		ReceiptWriter writer = new TexualReceiptWriter();
+		return writer.write(receipt);
+	}
+
+	private String fixProductName(String name) {
+		return name.replace(IMPORTED, "");
+	}
+
+	private Optional<String> seekProductCategory(String product) {
+		for (Entry<String, String> entry : categories.entrySet()) {
+			String name = entry.getKey();
+			if (StringUtils.containsIgnoreCase(name, product)) {
+				return Optional.of(entry.getValue());
+			}
+		}
+		return Optional.empty();
 	}
 
 }
