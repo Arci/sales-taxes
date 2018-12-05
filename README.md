@@ -21,6 +21,10 @@ A file containing the categories of the various products is supplied at startup,
 - If a product cannot be found within categories it's supposed to be eligible for the basic sales tax
 - categories can be held in memory, an `HashMap` has been used to store them, otherwise they should be saved persistently on a DB or the file read by chunk
 
+## Output format
+The output format is intended as the one in the examples so I suppose the user wants the ability to output it to a file.
+
+The implemented writer: `TextualReceiptWriter` implements the interface `ReceiptWriter` that accept a `Receipt` and returns a string representation of it.
 
 # Build the application
 The application can be build with Maven:

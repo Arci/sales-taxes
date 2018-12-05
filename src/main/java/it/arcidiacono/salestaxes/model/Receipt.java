@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import lombok.Getter;
 import lombok.ToString;
 
 @ToString
@@ -12,8 +13,10 @@ public class Receipt {
 
 	private List<Purchase> purchases;
 
+	@Getter
 	private BigDecimal salesTaxes;
 
+	@Getter
 	private BigDecimal total;
 
 	public Receipt() {
@@ -28,8 +31,7 @@ public class Receipt {
 	}
 
 	public void addPurchase(TaxedPurchase purchase) {
-		this.purchases.add(purchase);
-		this.total = this.total.add(purchase.getTaxedPrice());
+		addPurchase((Purchase) purchase);
 		this.salesTaxes = this.salesTaxes.add(purchase.getSalesTax());
 	}
 

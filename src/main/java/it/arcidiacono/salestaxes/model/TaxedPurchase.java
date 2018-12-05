@@ -30,4 +30,9 @@ public class TaxedPurchase extends Purchase {
 		return new TaxedPurchase(quantity, product, price, salesTax);
 	}
 
+	@Override
+	public BigDecimal getPrice() {
+		return this.taxedPrice;
+	}
+
 }

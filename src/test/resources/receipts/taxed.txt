@@ -1,0 +1,5 @@
+1 book: 12.49
+1 music CD: 16.49
+1 bottle of perfume: 54.65
+Sales Taxes: 8.65
+Total: 83.63

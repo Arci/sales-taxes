@@ -1,0 +1,4 @@
+1 book: 12.49
+1 chocolate bar: 0.85
+Sales Taxes: 0
+Total: 13.34
